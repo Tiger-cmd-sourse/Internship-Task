@@ -1,0 +1,79 @@
+import pickle
+
+
+def main():
+    kanban = load_list_from_pickle("Kanban_Board.pkl")
+    ask_user(kanban)
+
+
+def ask_user(kanban):
+    while True:
+        print("Welcome to your Kanban Board")
+        print("Please select the task you want to perform from below (enter the corresponding number):")
+        print("1) Add a task to the Todo list")
+        print("2) Move a task from the Todo list to the In Progress list")
+        print("3) Move a task from the In Progress list to the Done list")
+        print("4) Print your Kanban Board")
+        print("5) Exit the kanban board")
+
+        task = input("Please select an option: ")
+
+        if task.isdigit():
+            task = int(task)
+            if task == 1:
+                kanban["Todo"].append(input("Enter the task you want to add to the Todo list:"))
+            elif task == 2:
+                new_in_progress = input("Enter the task you want to move from the Todo list to the In Progress list: ")
+                if new_in_progress in kanban['Todo']:
+                    element = kanban["Todo"].pop(kanban["Todo"].index(new_in_progress))
+                    kanban["In_progress"].append(element)
+                else:
+                    print("Invalid data. Please check your Kanban Board.")
+            elif task == 3:
+                new_done = input("Enter the task you have completed: ")
+                if new_done in kanban["In_progress"]:
+                    element = kanban["In_progress"].pop(kanban["In_progress"].index(new_done))
+                    kanban["Done"].append(element)
+                else:
+                    print("Invalid data. Please check your Kanban Board.")
+            elif task == 4:
+                to_print_kanban(kanban)
+            elif task == 5:
+                break
+            else:
+                print("Invalid input. Please check.")
+        else:
+            print("Invalid input. Please enter a number.")
+
+    save_list_to_pickle("Kanban_Board.pkl", kanban)
+
+
+def to_print_kanban(kanban):
+    print("Your Kanban Board:")
+    for key, value in kanban.items():
+        print(key + " Plans:", value)
+
+
+def save_list_to_pickle(file_path, kanban):
+    try:
+        with open(file_path, "wb") as file:
+            pickle.dump(kanban, file)
+    except Exception as e:
+        print("Error occurred while saving the pickle file:", e)
+
+
+def load_list_from_pickle(filepath):
+    try:
+        with open(filepath, "rb") as file:
+            kanban = pickle.load(file)
+    except FileNotFoundError:
+        Todo_list = []
+        In_Progress_list = []
+        Done_list = []
+        kanban = {'Todo': Todo_list, 'In_progress': In_Progress_list, 'Done': Done_list}
+
+    return kanban
+
+
+if __name__ == '__main__':
+    main()
