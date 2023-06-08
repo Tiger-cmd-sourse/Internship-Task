@@ -1,11 +1,11 @@
 import pickle
 
-
+#main function to load function
 def main():
     kanban = load_list_from_pickle("Kanban_Board.pkl")
     ask_user(kanban)
 
-
+#ask_user function is used to ask input from the user and save operation in the pickle file
 def ask_user(kanban):
     while True:
         print("Welcome to your Kanban Board")
@@ -48,6 +48,7 @@ def ask_user(kanban):
     save_list_to_pickle("Kanban_Board.pkl", kanban)
 
 
+#to_print_kanban function is to print the kanban board (Todo_list, In_progress, Done_list)
 def to_print_kanban(kanban):
     print("Your Kanban Board:")
     for key, value in kanban.items():
@@ -74,6 +75,6 @@ def load_list_from_pickle(filepath):
 
     return kanban
 
-
+#to run main function
 if __name__ == '__main__':
     main()
