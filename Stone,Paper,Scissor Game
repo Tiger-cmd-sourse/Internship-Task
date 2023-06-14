@@ -20,6 +20,7 @@ def main():
 
 
 # ask user to select Stone,Paper or Scissor
+#user will have to enter stone or paper or scissor in text in the input field
 def user_action():
     print("Choose option from the following: ")
     print("1)Stone")
@@ -73,7 +74,7 @@ def check_inputs(user_input, comp_input):
     elif user_input == "scissor" and comp_input == "scissor":
         print("It is a tie")
     else:
-        print("Invalid input. Please re-enter")
+        print("Invalid input. Please re-enter like stone or paper or scissor")
 
 
 if __name__ == "__main__":
