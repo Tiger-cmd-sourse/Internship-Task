@@ -1,5 +1,5 @@
 # Install necessary libraries
-# pip install scapy pandas matplotlib seaborn scikit-learn libpcap
+pip install scapy pandas matplotlib seaborn scikit-learn libpcap
 
 import scapy.all as scapy
 import pandas as pd
